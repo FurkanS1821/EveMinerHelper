@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EveMinerHelperUI"
         mc:Ignorable="d"
-        Title="ModuleEditorWindow" ResizeMode="NoResize" MinHeight="220" MaxHeight="220" Height="220" MinWidth="210" MaxWidth="210" Width="210">
+        Title="Module Editor" ResizeMode="NoResize" MinHeight="220" MaxHeight="220" Height="220" MinWidth="210" MaxWidth="210" Width="210">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>

@@ -15,8 +15,9 @@ namespace EveMinerHelperUI
         private double _currentCargo;
         private bool _cargoEnabled = true;
         private int _currentTargetIndex;
+
         public ObservableCollection<MinerModuleData> Modules = new ObservableCollection<MinerModuleData>();
-        public ObservableCollection<TargetAsteroidData> Targets { get; set; }
+        public ObservableCollection<TargetAsteroidData> Targets { get; set; } = new ObservableCollection<TargetAsteroidData>();
 
         public MainWindowData()
         {
@@ -29,26 +30,31 @@ namespace EveMinerHelperUI
             Targets.CollectionChanged += (o, args) => Notify("Targets");
         }
 
-        public static readonly Dictionary<string, double> OreVolumes = new Dictionary<string, double>
+        static MainWindowData()
         {
-            ["Moon Specific Ores"] = 10,
-            ["Arkonor"] = 16,
-            ["Bistot"] = 16,
-            ["Crokite"] = 16,
-            ["Dark Ochre"] = 8,
-            ["Gneiss"] = 5,
-            ["Hedbergite"] = 3,
-            ["Hemorphite"] = 3,
-            ["Jaspet"] = 2,
-            ["Kernite"] = 1.2,
-            ["Mercoxit"] = 40,
-            ["Omber"] = 0.6,
-            ["Plagioclase"] = 0.35,
-            ["Pyroxeres"] = 0.3,
-            ["Scordite"] = 0.15,
-            ["Spodumain"] = 16,
-            ["Veldspar"] = 0.1
-        };
+            OreVolumes = new Dictionary<string, double>
+            {
+                ["Moon Specific Ores"] = 10,
+                ["Arkonor"] = 16,
+                ["Bistot"] = 16,
+                ["Crokite"] = 16,
+                ["Dark Ochre"] = 8,
+                ["Gneiss"] = 5,
+                ["Hedbergite"] = 3,
+                ["Hemorphite"] = 3,
+                ["Jaspet"] = 2,
+                ["Kernite"] = 1.2,
+                ["Mercoxit"] = 40,
+                ["Omber"] = 0.6,
+                ["Plagioclase"] = 0.35,
+                ["Pyroxeres"] = 0.3,
+                ["Scordite"] = 0.15,
+                ["Spodumain"] = 16,
+                ["Veldspar"] = 0.1
+            };
+        }
+
+        public static Dictionary<string, double> OreVolumes { get; }
 
         public static double GetUnitVolumeForOre(string type)
         {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EveMinerHelperUI"
         mc:Ignorable="d"
-        Title="EVE Miner Assistant" MinHeight="375" Height="600" MinWidth="550" Width="800">
+        Title="EVE Miner Assistant" MinHeight="375" Height="375" MinWidth="550" Width="550">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
@@ -32,14 +32,15 @@
         <TextBlock Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="90,10,0,0" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Text="/" VerticalAlignment="Top" Height="24" Width="20"/>
         <ProgressBar IsIndeterminate="{Binding CargoEnabled, Converter={local:InverseBoolConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="BottomProgressBar" Foreground="LightGreen" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="1" VerticalAlignment="Stretch"/>
         <ProgressBar IsIndeterminate="{Binding CargoEnabled, Converter={local:InverseBoolConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Maximum="{Binding TotalCargo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="{Binding CurrentCargo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="TopProgressBar" Background="Transparent" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="1" VerticalAlignment="Stretch"/>
-        <CheckBox Click="IgnoreCapacityCheck_OnClick" x:Name="IgnoreCapacityCheck" FontSize="13" Content="Ignore Ore Hold Capacity" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="2" Grid.ColumnSpan="3"/>
+        <CheckBox Click="IgnoreCapacityCheck_OnClick" x:Name="IgnoreCapacityCheck" FontSize="13" Content="Ignore Ore Hold Capacity" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="2" Grid.ColumnSpan="2"/>
         <ListBox SelectionChanged="ModuleList_OnSelectionChanged" DisplayMemberPath="Key" Name="ModuleList" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="0,10,0,10" Grid.RowSpan="3" VerticalAlignment="Stretch"/>
         <Button Name="EditModuleButton" Click="EditModuleButton_OnClick" IsEnabled="False" Content="Edit Module" Grid.Column="4" Grid.Row="3" HorizontalAlignment="Stretch" Margin="0,10,5,10" VerticalAlignment="Stretch"/>
         <Button Name="DeleteModuleButton" Click="DeleteModuleButton_OnClick" IsEnabled="False" Content="Remove Module" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Stretch" Margin="5,10,0,10" VerticalAlignment="Stretch"/>
         <ListBox Name="TargetList" SelectedIndex="{Binding CurrentTargetIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Targets, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="TargetList_OnSelectionChanged" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="5" Grid.RowSpan="3" VerticalAlignment="Stretch"/>
-        <Button Name="AddTargetButton" Content="Add Target" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,10,0,10" Grid.Row="5" VerticalAlignment="Stretch"/>
-        <Button Name="EditTargetButton" Content="Edit Target" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,10,0,10" Grid.Row="6" VerticalAlignment="Stretch"/>
-        <Button Name="RemoveTargetButton" Click="RemoveTargetButton_OnClick" Content="Remove Target" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,10,0,10" Grid.Row="7" VerticalAlignment="Stretch"/>
-        <ListBox Name="CountdownList" Grid.ColumnSpan="2" Grid.Column="4" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="5" Grid.RowSpan="3" VerticalAlignment="Stretch"/>
+        <Button Name="AddTargetButton" Click="AddTargetButton_OnClick" Content="Add Target" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,10,10,10" Grid.Row="5" VerticalAlignment="Stretch"/>
+        <Button Name="EditTargetButton" Click="EditTargetButton_OnClick" Content="Edit Target" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,10,10,10" Grid.Row="6" VerticalAlignment="Stretch"/>
+        <Button Name="RemoveTargetButton" Click="RemoveTargetButton_OnClick" Content="Remove Target" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,10,10,10" Grid.Row="7" VerticalAlignment="Stretch"/>
+        <ListBox Name="CountdownList" Grid.ColumnSpan="2" Grid.Column="4" HorizontalAlignment="Stretch" Margin="0,10,0,10" Grid.Row="5" Grid.RowSpan="3" VerticalAlignment="Stretch"/>
+        <Button Name="EmptyOreHoldButton" Click="EmptyOreHoldButton_OnClick" Content="Reset Ore Hold" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,10,10,10" Grid.Row="2" VerticalAlignment="Stretch"/>
     </Grid>
 </Window>

@@ -13,7 +13,7 @@
 
         public override string ToString()
         {
-            return $"{OreAmount} {OreType} ({MainWindowData.GetUnitVolumeForOre(OreType)} m^3)";
+            return $"{OreAmount} {OreType} ({MainWindowData.GetUnitVolumeForOre(OreType) * OreAmount} m³)";
         }
     }
 }

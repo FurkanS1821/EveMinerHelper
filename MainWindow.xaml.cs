@@ -30,11 +30,11 @@ namespace EveMinerHelperUI
 
             InitializeComponent();
 
-            // todo OreTypeSelector.ItemsSource = MainWindowData.OreVolumes;
+            // OreTypeSelector.ItemsSource = MainWindowData.OreVolumes;
             UIData_PropertyChanged(UIData, new PropertyChangedEventArgs("Modules"));
         }
 
-        private void UIData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void UIData_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("Modules"))
             {
@@ -52,8 +52,8 @@ namespace EveMinerHelperUI
         [Obsolete("Not really obsolete but might be useful later, if ore icons are needed.")]
         public void SetOreIcon(string type)
         {
-            var uri = $"pack://application:,,,/EveMinerHelperUI;component/Resources/Ore_{type.Replace(' ', '_')}.png";
-            // todo OreTypeIcon.Source = new BitmapImage(new Uri(uri, UriKind.Absolute));
+            // var uri = $"pack://application:,,,/EveMinerHelperUI;component/Resources/Ore_{type.Replace(' ', '_')}.png";
+            // SomeComponent.Source = new BitmapImage(new Uri(uri, UriKind.Absolute));
         }
 
         private void IgnoreCapacityCheck_OnClick(object sender, RoutedEventArgs e)
@@ -92,6 +92,25 @@ namespace EveMinerHelperUI
         private void RemoveTargetButton_OnClick(object sender, RoutedEventArgs e)
         {
             UIData.Targets.RemoveAt(UIData.CurrentTargetIndex);
+        }
+
+        private void EmptyOreHoldButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            UIData.CurrentCargo = 0;
+        }
+
+        private void AddTargetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var window = new TargetEditorWindow(this);
+            window.Show();
+            window.Focus();
+        }
+
+        private void EditTargetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var window = new TargetEditorWindow(this, (TargetAsteroidData)TargetList.SelectedItem);
+            window.Show();
+            window.Focus();
         }
     }
 }
