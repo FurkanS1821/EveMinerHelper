@@ -3,14 +3,17 @@
     public class TargetAsteroidData
     {
         public int OreAmount;
-        public AsteroidType OreType;
-        public bool IsCurrentTarget;
+        public string OreType;
 
-        public TargetAsteroidData(int oreAmount, AsteroidType oreType, bool isCurrentTarget = false)
+        public TargetAsteroidData(int oreAmount, string oreType)
         {
             OreAmount = oreAmount;
             OreType = oreType;
-            IsCurrentTarget = isCurrentTarget;
+        }
+
+        public override string ToString()
+        {
+            return $"{OreAmount} {OreType} ({MainWindowData.GetUnitVolumeForOre(OreType)} m^3)";
         }
     }
 }

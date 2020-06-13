@@ -3,28 +3,43 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:EveMinerHelperUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1366">
+        Title="EVE Miner Assistant" MinHeight="375" Height="600" MinWidth="550" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="44"/>
-            <RowDefinition Height="44"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="45"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
-        <ProgressBar Name="BottomProgressBar" Foreground="LightGreen" BorderThickness="3" BorderBrush="Black" Margin="10,10,10,10" Grid.ColumnSpan="3" Grid.Row="1"/>
-        <ProgressBar Name="TopProgressBar" Foreground="Green" Background="#00000000" BorderThickness="3" BorderBrush="Black" Margin="10,10,10,10" Grid.ColumnSpan="3" Grid.Row="1"/>
-        <TextBlock Margin="10,10,10,10" TextAlignment="Center" FontSize="15" TextWrapping="Wrap" Text="Ore Hold Capacity:"/>
-        <TextBox Name="CurrentOreHoldCapacityBox" Grid.Column="1" HorizontalAlignment="Left" Height="24" FontSize="15" TextAlignment="Center" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
-        <TextBox Name="TotalOreHoldCapacityBox" Grid.Column="2" HorizontalAlignment="Left" Height="24" FontSize="15" TextAlignment="Center" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
-        <TextBlock Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="190,10,0,0" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Text="/" VerticalAlignment="Top" Height="24" Width="20"/>
-        <CheckBox Name="IgnoreCapacityCheck" FlowDirection="RightToLeft" FontSize="15" Content="Ignore Ore Hold capacity, I get rid of the load in some way" VerticalAlignment="Top" Margin="10,0" Grid.Row="2" Grid.ColumnSpan="3" Height="20"/>
+        <TextBlock Padding="3" Margin="0,0,0,0" TextAlignment="Center" FontSize="13" TextWrapping="Wrap" Text="Ore Hold Capacity:"/>
+        <TextBox IsEnabled="{Binding CargoEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Text="{Binding CurrentCargo, Mode=TwoWay, StringFormat=N1, UpdateSourceTrigger=PropertyChanged}" Name="CurrentOreHoldCapacityBox" Grid.Column="1" HorizontalAlignment="Stretch" FontSize="15" TextAlignment="Center" Margin="10,10,10,10" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+        <TextBox IsEnabled="{Binding CargoEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Text="{Binding TotalCargo, Mode=TwoWay, StringFormat=N1, UpdateSourceTrigger=PropertyChanged}" Name="TotalOreHoldCapacityBox" Grid.Column="2" HorizontalAlignment="Stretch" FontSize="15" TextAlignment="Center" Margin="10,10,10,10" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+        <TextBlock Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="90,10,0,0" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Text="/" VerticalAlignment="Top" Height="24" Width="20"/>
+        <ProgressBar IsIndeterminate="{Binding CargoEnabled, Converter={local:InverseBoolConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="BottomProgressBar" Foreground="LightGreen" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="1" VerticalAlignment="Stretch"/>
+        <ProgressBar IsIndeterminate="{Binding CargoEnabled, Converter={local:InverseBoolConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Maximum="{Binding TotalCargo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="{Binding CurrentCargo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="TopProgressBar" Background="Transparent" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="1" VerticalAlignment="Stretch"/>
+        <CheckBox Click="IgnoreCapacityCheck_OnClick" x:Name="IgnoreCapacityCheck" FontSize="13" Content="Ignore Ore Hold Capacity" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="2" Grid.ColumnSpan="3"/>
+        <ListBox SelectionChanged="ModuleList_OnSelectionChanged" DisplayMemberPath="Key" Name="ModuleList" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="0,10,0,10" Grid.RowSpan="3" VerticalAlignment="Stretch"/>
+        <Button Name="EditModuleButton" Click="EditModuleButton_OnClick" IsEnabled="False" Content="Edit Module" Grid.Column="4" Grid.Row="3" HorizontalAlignment="Stretch" Margin="0,10,5,10" VerticalAlignment="Stretch"/>
+        <Button Name="DeleteModuleButton" Click="DeleteModuleButton_OnClick" IsEnabled="False" Content="Remove Module" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Stretch" Margin="5,10,0,10" VerticalAlignment="Stretch"/>
+        <ListBox Name="TargetList" SelectedIndex="{Binding CurrentTargetIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Targets, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="TargetList_OnSelectionChanged" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="5" Grid.RowSpan="3" VerticalAlignment="Stretch"/>
+        <Button Name="AddTargetButton" Content="Add Target" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,10,0,10" Grid.Row="5" VerticalAlignment="Stretch"/>
+        <Button Name="EditTargetButton" Content="Edit Target" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,10,0,10" Grid.Row="6" VerticalAlignment="Stretch"/>
+        <Button Name="RemoveTargetButton" Click="RemoveTargetButton_OnClick" Content="Remove Target" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,10,0,10" Grid.Row="7" VerticalAlignment="Stretch"/>
+        <ListBox Name="CountdownList" Grid.ColumnSpan="2" Grid.Column="4" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="5" Grid.RowSpan="3" VerticalAlignment="Stretch"/>
     </Grid>
 </Window>

@@ -10,5 +10,10 @@
             ExtractedVolumePerCycle = extractRate;
             CycleTime = cycleTime;
         }
+
+        public override string ToString()
+        {
+            return $"{ExtractedVolumePerCycle} m^3 in {CycleTime}s";
+        }
     }
 }
